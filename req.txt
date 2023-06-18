@@ -3,4 +3,4 @@ pillow==9.3.0
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 
-
+django-cors-headers
