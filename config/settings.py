@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-n94zh2s*sv44ju_7k_87$(%%z(!5e(r=vl+h&p9wd-=*ama-+7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["api.datashop.uz", "localhost", "127.0.0.1", ".datashop.uz"]
 
 
 # Application definition
