@@ -6,6 +6,7 @@ from .forms import ProductFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 class DefaultsMixin(object):
     """Default settings for view authentication, permissions, filtering and pagination."""
@@ -14,8 +15,8 @@ class DefaultsMixin(object):
         authentication.TokenAuthentication,
             )
     permission_classes = (
-        # permissions.IsAuthenticated,
-        permissions.IsAuthenticatedOrReadOnly
+        permissions.IsAuthenticated,
+        # permissions.IsAuthenticatedOrReadOnly
         #TokenHasReadWriteScope,
         )
     paginate_by = 25
@@ -38,9 +39,11 @@ class ProductViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('price','name','total_available')
 
 
-class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class CategoryViewSet(viewsets.ModelViewSet):
     """API endpoint for listing Category."""
-    
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
     queryset = Category.objects.order_by('-name',) 
     serializer_class = CategorySerializer   
     search_fields = ('name',)
