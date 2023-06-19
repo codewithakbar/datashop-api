@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
-from .models import CustomUser, Profile
+from .models import CustomUser, ImageUpload, Profile
 
 class ProfileInline(admin.StackedInline):
     model = Profile
@@ -62,3 +62,4 @@ class CustomUserAdmin(UserAdmin):
     inlines = (ProfileInline,)
 
 admin.site.register(Profile)
+admin.site.register(ImageUpload)

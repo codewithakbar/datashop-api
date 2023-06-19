@@ -12,6 +12,8 @@ from django.utils.translation import gettext_lazy as _
 
 from .managers import CustomUserManager
 
+
+
 class CustomUser(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
 
@@ -30,9 +32,10 @@ def get_image_filename(instance, filename):
     slug = slugify(name)
     return f"products/{slug}-{filename}"
 
+
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to=get_image_filename, blank=True)
+    avatar = models.ImageField(upload_to="profile/avatar/%Y/%m", blank=True)
     bio = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
@@ -41,3 +44,11 @@ class Profile(models.Model):
     @property
     def filename(self):
         return os.path.basename(self.image.name)
+
+
+class ImageUpload(models.Model):
+    image = models.ImageField(upload_to="images")
+
+    def __str__(self):
+        return str(self.image)
+
