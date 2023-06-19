@@ -14,7 +14,8 @@ class DefaultsMixin(object):
         authentication.TokenAuthentication,
             )
     permission_classes = (
-        permissions.IsAuthenticated,
+        # permissions.IsAuthenticated,
+        permissions.IsAuthenticatedOrReadOnly
         #TokenHasReadWriteScope,
         )
     paginate_by = 25
@@ -36,7 +37,7 @@ class ProductViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('name','price')
     ordering_fields = ('price','name','total_available')
 
-    
+
 class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing Category."""
     
@@ -44,5 +45,6 @@ class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
     serializer_class = CategorySerializer   
     search_fields = ('name',)
     
+
 
 
