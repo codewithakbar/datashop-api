@@ -3,14 +3,37 @@ from django.contrib.auth import get_user_model
 
 from users.models import ImageUpload
 
+from mptt.models import MPTTModel
+from mptt.fields import TreeForeignKey
+
 
 User = get_user_model()
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    parent = models.ForeignKey('self', null=True, blank=True, related_name='children', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
+
+    def __str__(self):
+        return self.name
+
+
+
+class Subcategory(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, related_name='subcategories')
+    children = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='parent')
+
+    class Meta:
+        verbose_name_plural = 'subcategories'
+
 
     def __str__(self):
         return self.name

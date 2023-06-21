@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.reverse import reverse
-from .models import Product, ProductImage, ProductComment, Category, ImageUpload
+from .models import Product, ProductImage, ProductComment, Category, ImageUpload, Subcategory
 from drf_writable_nested import WritableNestedModelSerializer
 
 
@@ -9,11 +9,31 @@ User = get_user_model()
 
 
 
+class ChildrenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subcategory
+        fields = ['name', 'slug']
+
+
+
+class SubcategorySerializer(serializers.ModelSerializer):
+    children = ChildrenSerializer()
+    # products = ProductSerializer(many=True)
+
+    class Meta:
+        model = Subcategory
+        fields = ('id', 'name', 'slug', 'children')
+
+
+
 class CategorySerializer(serializers.ModelSerializer):
+    subcategories = SubcategorySerializer(many=True, read_only=True)
+
+
     class Meta:
         model = Category
-        fields = ['id', 'name', 'parent', 'created_at']
-        depth = 1
+        fields = ['id', 'name', 'subcategories', 'created_at']
+        # depth = 1
 
 
 
