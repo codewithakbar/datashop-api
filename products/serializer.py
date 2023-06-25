@@ -32,7 +32,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'subcategories', 'created_at']
+        fields = ['id', 'name', 'slug', 'subcategories', 'created_at']
         # depth = 1
 
 
