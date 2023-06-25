@@ -60,6 +60,7 @@ class ProductComment(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name="product_categories", on_delete=models.CASCADE)
+    sub_category = models.ForeignKey(Subcategory, related_name="product_subcategories", on_delete=models.CASCADE)
     # business = models.ForeignKey(Business, related_name="belongs_to_business", on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     price = models.FloatField()
