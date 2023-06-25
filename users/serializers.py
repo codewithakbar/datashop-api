@@ -36,7 +36,6 @@ class UserLoginSerializer(serializers.Serializer):
     Serializer class to authenticate users with email and password.
     """
 
-    email = serializers.CharField()
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
