@@ -7,4 +7,6 @@ router.register(r'products', ProductViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('products/<str:category_slug>/', ProductListByCategoryAPIView.as_view(), name='product-list-by-category'),
+
 ]
