@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from rest_framework import authentication, permissions, viewsets, filters
+from rest_framework import authentication, permissions, viewsets, filters, generics
 from .serializer import ProductSerializer, CategorySerializer
 from .models import Product, Category
 from .forms import ProductFilter
@@ -49,3 +49,10 @@ class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
     serializer_class = CategorySerializer   
     search_fields = ('name',)
     
+
+class ProductListByCategoryAPIView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        category_slug = self.kwargs['category_slug']
+        return Product.objects.filter(category__slug=category_slug)

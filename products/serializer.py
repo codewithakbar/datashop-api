@@ -83,11 +83,4 @@ class ProductSerializer(WritableNestedModelSerializer, serializers.ModelSerializ
     
 
 
-class ProductListByCategoryAPIView(generics.ListAPIView):
-    serializer_class = ProductSerializer
 
-    def get_queryset(self):
-        category_slug = self.kwargs['category_slug']
-        return Product.objects.filter(category__slug=category_slug)
-
-        
