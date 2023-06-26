@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["api.datashop.uz", "localhost", "127.0.0.1", ".datashop.uz"]
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+
 
 
     'users',
@@ -88,6 +90,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
+    'django.middleware.locale.LocaleMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -150,6 +153,23 @@ AUTH_PASSWORD_VALIDATORS = [
 
 import os
 # Internationalization
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale/',
+]
+
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('uz', 'uzbek'),
+]
+
+MODELTRANSLATION_LANGUAGES = ('uz', 'en')
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+
+
+
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'

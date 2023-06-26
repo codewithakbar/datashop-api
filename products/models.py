@@ -18,7 +18,7 @@ class Category(models.Model):
 
     class MPTTMeta:
         order_insertion_by = ['name']
-
+ 
 
     def __str__(self):
         return self.name
