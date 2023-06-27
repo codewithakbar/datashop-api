@@ -33,7 +33,7 @@ class ProductViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing Products."""
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    queryset = Product.objects.order_by('name',) 
+    queryset = Product.objects.order_by('name',).filter(parent=None)
     serializer_class = ProductSerializer   
     filter_class = ProductFilter
     search_fields = ('name','price')
@@ -45,7 +45,7 @@ class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-    queryset = Category.objects.order_by('-name',) 
+    queryset = Category.objects.order_by('-name',).filter(parent=None)
     serializer_class = CategorySerializer   
     search_fields = ('name',)
     
