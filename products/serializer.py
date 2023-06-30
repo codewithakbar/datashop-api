@@ -10,17 +10,25 @@ User = get_user_model()
 
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
     children = serializers.SerializerMethodField()
+    links = serializers.SerializerMethodField('get_links')
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'created_at', 'children']
+        fields = ['id', 'name', 'slug', 'links', 'children']
 
     def get_children(self, obj):
         child_categories = obj.children.all()
         child_serializer = CategorySerializer(child_categories, many=True)
         return child_serializer.data
+    
+    def get_links(self, obj):
+        request = self.context.get('request')
+        links = {
+            'self': reverse('category-detail', kwargs={'pk': obj.pk}, request=request),
+        }
+        return links
 
 
 
