@@ -22,12 +22,16 @@ from django.views.static import serve
 
 from rest_framework import routers
 
-from users.views import UserAPIView
+# from users.views import UserAPIView
 from products.views import ProductViewSet, CategoryViewSet
+from cart.views import CartViewSet
+# from users.views import UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'products', ProductViewSet)
 router.register(r'cateogry', CategoryViewSet)
+router.register(r'cart', CartViewSet)
+# router.register(r'user', UserViewSet)
 
 
 urlpatterns = [
