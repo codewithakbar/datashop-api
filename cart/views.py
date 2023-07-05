@@ -27,9 +27,9 @@ class DefaultsMixin(object):
             )    
 
 
-class CartViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class CartViewSet(viewsets.ModelViewSet):
     """API endpoint for listing Carts."""
-    
+    permission_classes = [permissions.IsAuthenticated]
     queryset = Cart.objects.order_by('created_at') 
     serializer_class = CartSerializer 
     filter_class = CartFilter
