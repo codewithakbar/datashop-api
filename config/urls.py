@@ -30,7 +30,7 @@ from cart.views import CartViewSet
 router = routers.DefaultRouter()
 router.register(r'products', ProductViewSet)
 router.register(r'cateogry', CategoryViewSet)
-router.register(r'cart', CartViewSet)
+router.register(r'cart', CartViewSet, basename='cart')
 # router.register(r'user', UserViewSet)
 
 
