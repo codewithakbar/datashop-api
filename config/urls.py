@@ -21,6 +21,7 @@ from django.views.static import serve
 
 
 from rest_framework import routers
+from order.views import OrderSetView
 
 # from users.views import UserAPIView
 from products.views import ProductViewSet, CategoryViewSet
@@ -31,6 +32,8 @@ router = routers.DefaultRouter()
 router.register(r'products', ProductViewSet)
 router.register(r'cateogry', CategoryViewSet)
 router.register(r'cart', CartViewSet, basename='cart')
+router.register(r'orders', OrderSetView, basename='order')
+
 # router.register(r'user', UserViewSet)
 
 
