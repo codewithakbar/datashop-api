@@ -10,6 +10,8 @@ from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, Token
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from django.http import HttpResponse
+from ipware import get_client_ip
+
 
 from config.config import BOT_TOKEN
 
@@ -67,15 +69,15 @@ def home(request):
     user_id = '984573662'
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
-    ip_address = request.META.get('REMOTE_ADDR')
+    client_ip, _ = get_client_ip(request)
 
     params = {
         "chat_id": user_id,
-        "text": ip_address
+        "text": client_ip
     }
 
     response = requests.post(url, params=params)
 
-    return HttpResponse(f'<b>Hello, world!<br><br>{ip_address}</b>')
+    return HttpResponse(f'<b>Hello, world!<br><br>{client_ip}</b>')
     
     
