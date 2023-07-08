@@ -1,4 +1,5 @@
 from django.db import models
+from cart.models import Cart
 
 from products.models import Product
 
@@ -29,7 +30,7 @@ class Order(models.Model):
         ('Naqd', 'Naqd'),
     )
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Cart, on_delete=models.CASCADE)
 
     # 1. Как вы хотите получить заказ?
     dostavka = models.CharField(max_length=34, choices=DOSTAVKA, default="Dastavka")

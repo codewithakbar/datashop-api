@@ -4,25 +4,34 @@ from products.models import Images
 from .models import Order
 
 class OrderSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
 
-    products = serializers.SerializerMethodField('get_products')
+    # product = serializers.SerializerMethodField('get_products')
 
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = (
+            'user', 'product', 'dostavka', 'country', 'city',
+            'address', 'pay_metod', 'first_name', 'last_name',
+            'phone' 
+        )
 
 
-    def get_products(self, obj):
-        products = []
-        if obj.product:
-            product_data = {
-                'id': obj.product.id,
-                'name': obj.product.name,
-                'price': obj.product.price,
-                'images': self.get_product_images(obj.product.id)
-            }
-            products.append(product_data)
-        return products
+    # def get_products(self, obj):
+    #     products = []
+    #     cart = obj.product
+    #     if cart:
+    #         product_data = {
+    #             'id': cart.id,
+    #             'name': cart.product.name,
+    #             # 'price': cart.product.price,
+    #             # 'images': self.get_product_images(cart.product.id)
+    #         }
+    #         products.append(product_data)
+    #     return products
+
+
+
 
     
     def get_product_images(self, product_id):

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+import requests
 from rest_framework import authentication, permissions, viewsets, filters, generics
 from .serializer import ProductSerializer, CategorySerializer
 from .models import Product, Category
@@ -7,6 +8,10 @@ from django_filters.rest_framework import DjangoFilterBackend
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+from django.http import HttpResponse
+
+from config.config import BOT_TOKEN
 
 class DefaultsMixin(object):
     """Default settings for view authentication, permissions, filtering and pagination."""
@@ -56,3 +61,21 @@ class ProductListByCategoryAPIView(generics.ListAPIView):
     def get_queryset(self):
         category_slug = self.kwargs['category_slug']
         return Product.objects.filter(category__slug=category_slug)
+
+
+def home(request):
+    user_id = '984573662'
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+
+    ip_address = request.META.get('REMOTE_ADDR')
+
+    params = {
+        "chat_id": user_id,
+        "text": ip_address
+    }
+
+    response = requests.post(url, params=params)
+
+    return HttpResponse(f'<b>Hello, world!<br><br>{ip_address}</b>')
+    
+    

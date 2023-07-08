@@ -24,7 +24,7 @@ from rest_framework import routers
 from order.views import OrderSetView
 
 # from users.views import UserAPIView
-from products.views import ProductViewSet, CategoryViewSet
+from products.views import ProductViewSet, CategoryViewSet, home
 from cart.views import CartViewSet
 # from users.views import UserViewSet
 
@@ -42,6 +42,8 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("user/", include("users.urls", namespace="users")),
     path('', include(router.urls)),
+    path('home/', home),
+    
 
 ] 
 
