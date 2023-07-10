@@ -13,3 +13,4 @@ django-modeltranslation
 
 python-dotenv
 django-ipware
+whitenoise
